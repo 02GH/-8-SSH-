@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cn.edu.cdut</groupId>
+  <artifactId>SpringStruts</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>SpringStruts</name>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <junit.version>5.9.2</junit.version>
+  </properties>
+
+  <dependencies>
+<!--1、测试工具依赖，servlet依赖-->
+          <dependency>
+              <groupId>javax.servlet</groupId>
+              <artifactId>javax.servlet-api</artifactId>
+              <version>4.0.1</version>
+              <scope>provided</scope>
+          </dependency>
+          <dependency>
+              <groupId>jakarta.servlet</groupId>
+              <artifactId>jakarta.servlet-api</artifactId>
+              <version>5.0.0</version>
+              <scope>provided</scope>
+          </dependency>
+        <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-api</artifactId>
+              <version>${junit.version}</version>
+              <scope>test</scope>
+        </dependency>
+          <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+          </dependency>
+          <dependency>
+              <groupId>junit</groupId>
+              <artifactId>junit</artifactId>
+              <version>RELEASE</version>
+              <scope>compile</scope>
+          </dependency>
+
+ <!--  2、      hibernate依赖-->
+
+          <dependency>
+              <groupId>org.hibernate</groupId>
+              <artifactId>hibernate-core</artifactId>
+              <version>5.4.30.Final</version>
+          </dependency>
+          <dependency>
+              <groupId>org.hibernate</groupId>
+              <artifactId>hibernate-c3p0</artifactId>
+              <version>5.3.4.Final</version>
+          </dependency>
+          <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>5.0.7</version>
+          </dependency>
+
+          <!-- 3.Spring核心依赖 -->
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-core</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-beans</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-context</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <!-- 4.Spring dao依赖-->
+          <!-- spring-jdbc包括了一些如jdbcTemplate的工具类-->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>4.3.7.RELEASE</version>
+      </dependency>
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-jdbc</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-tx</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <!-- 5.Spring web依赖 -->
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-web</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-webmvc</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <!-- 6.Spring test依赖：方便做单元测试和集成测试 -->
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-test</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+
+          <!--7.Spring aop依赖-->
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-aspects</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-aop</artifactId>
+              <version>4.3.7.RELEASE</version>
+          </dependency>
+<!--    8.  struts依赖和与spring链接的插件-->
+      <dependency>
+          <groupId>org.apache.struts</groupId>
+          <artifactId>struts2-core</artifactId>
+          <version>2.5.30</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.struts</groupId>
+          <artifactId>struts2-spring-plugin</artifactId>
+          <version>2.5.30</version>
+      </dependency>
+
+  </dependencies>
+  <build>
+    <plugins>
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+      </plugin>    </plugins>
+  </build>
+</project>

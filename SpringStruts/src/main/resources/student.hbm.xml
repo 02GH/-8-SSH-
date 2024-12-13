@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+ <hibernate-mapping>
+    <!-- hbm配置文件的作用是
+    	（1）映射类和表
+    	（2）映射属性和字段
+     -->
+    <class name="cn.edu.cdut.beans.Student" table="student">
+	    <id name="id" column="id">
+	    	<generator class="native"/>
+	    </id>
+	    <property name="name" column="name"/>
+		<property name="sex" column="sex"/>
+	    <property name="age" column="age"/>
+	    <property name="score" column="score"/>
+		<set name="classes" cascade="all" table="middle" >
+			<key column="Student_id" />
+			<many-to-many class="cn.edu.cdut.beans.Class"/>
+		</set>
+	</class>
+ </hibernate-mapping>

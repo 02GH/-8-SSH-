@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+<!--设置C3P0数据源-->
+    <bean id="C3PODataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springtest"/>
+        <property name="user" value="root"/>
+        <property name="password" value="AnImE13658096590"/>
+     </bean>
+
+<!--    注册SessionFactory-->
+<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <property name="dataSource" ref="C3PODataSource"/>
+    <property name="mappingDirectoryLocations" value="/"/>
+    <property name="hibernateProperties">
+        <props>
+            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
+            <prop key="hibernate.hbm2ddl.auto">update</prop>
+            <prop key="hibernate.show_sql">true</prop>
+            <prop key="hibernate.format_sql">true</prop>
+            <prop key="hibernate.allow_update_outside_transaction">true</prop>
+            <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+        </props>
+    </property>
+</bean>
+    <!--    注册DAO\BEAN\SERVICE-->
+    <bean id="student" class="cn.edu.cdut.beans.Student"/>
+    <bean id="class" class="cn.edu.cdut.beans.Class"/>
+    <bean id="studentDao" class="cn.edu.cdut.Service.StudentDaoImpl">
+     <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="studentService" class="cn.edu.cdut.Service.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao"/>
+    </bean>
+    <bean id="classDao" class="cn.edu.cdut.Service.ClassDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="classService" class="cn.edu.cdut.Service.ClassServiceImpl">
+        <property name="classDao" ref="classDao"/>
+    </bean>
+<!--    事务管理aop设置-->
+    <bean id="trasctionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="C3PODataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="trasctionManager"/>
+    <tx:advice id="advice" transaction-manager="trasctionManager">
+        <tx:attributes>
+            <tx:method name="getCurrentSession" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="new*" propagation="REQUIRED"/>
+            <!-- 将select*加入事务-->
+            <tx:method name="select*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="pointcut1" expression="execution(* *..*Service*.*(..))"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="pointcut1"/>
+    </aop:config>
+
+<!--    配置struts的action-->
+    <bean id="loginAction" class="cn.edu.cdut.actions.LoginAction" scope="prototype">
+        <property name="student" ref="student"/>
+        <property name="studentService" ref="studentService"/>
+    </bean>
+
+    <bean id="selectAction" class="cn.edu.cdut.actions.SelectAction" scope="prototype">
+        <property name="student" ref="student"/>
+        <property name="studentService" ref="studentService"/>
+    </bean>
+
+</beans>

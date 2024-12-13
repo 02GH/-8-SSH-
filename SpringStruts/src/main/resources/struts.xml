@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+<!--    配置struts和spring的互联互通-->
+    <constant name="struts.objectFactory" value="spring" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+
+    <package name="xxx" namespace="/test" extends="struts-default">
+
+<!--        传统struts访问方式-->
+<!--        <action name="Login" class="cn.edu.cdut.actions.LoginAction">        -->
+<!--            <result name="success">/welcome.jsp</result>-->
+<!--         </action>-->
+
+
+<!--        托管给spring以后的访问方式-->
+        <action name="Login" class="loginAction">
+            <result name="success">/welcome.jsp</result>
+        </action>
+
+        <action name="select" class="selectAction">
+            <result name="success">/welcome.jsp</result>
+        </action>
+
+    </package>
+</struts>

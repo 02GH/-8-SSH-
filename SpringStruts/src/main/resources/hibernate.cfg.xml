@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!--定义数据库链接四要素  -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">AnImE13658096590</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/springtest?serverTimezone=UTC
+            &amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+
+        <!-- 定义方言 -->
+        <property name="dialect">org.hibernate.dialect.MySQL57Dialect</property>
+
+        <!-- 定义C3PO连接池 -->
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+
+
+        <!-- 注册上下文 -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- 配置数据库自动创建表和显示sql -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- 定义mapping文件，用作外键的表要放在前面 -->
+        <mapping resource="student.hbm.xml" />
+        <mapping resource="Class.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>
